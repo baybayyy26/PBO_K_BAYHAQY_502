@@ -1,35 +1,44 @@
 public class RekeningBank {
-    String narek;
-    String norek;
-    double saldo;
+        // Attribute
+        String norek;
+        String narek;
+        double saldo;
 
-    // Konstruktor untuk inisialisasi data saat objek dibuat
-    public RekeningBank(String norek, String narek, double saldo) {
-        this.norek = norek;
-        this.narek = narek;
-        this.saldo = saldo;
-    }
+        // Method untuk menampilkan informasi rekening
+        void tampilkanInfo() {
+            System.out.println("Nomor Rekening: " + norek);
+            System.out.println("Nama Pemilik: " + narek);
+            System.out.println("Saldo: Rp" + saldo);
+        }
 
-    void tampilkanInfo() {
-        System.out.println("========== Info Saldo ==========");
-        System.out.println("Nomor Rekening: " + norek);
-        System.out.println("Nama Rekening: " + narek);
-        System.out.println("Saldo: Rp. " + saldo);
-    }
+        // Method untuk setor uang
+        void setorUang(double jumlah) {
+            if (jumlah > 0) {
+                saldo += jumlah;
+                System.out.println("Setoran berhasil! Saldo sekarang: Rp" + saldo);
+            } else {
+                System.out.println("Jumlah setoran tidak valid.");
+            }
+        }
 
-    void setorUang(double jumlah) {
-        if (jumlah > 0) {
-            saldo += jumlah;
-            System.out.println(narek + " menyetor Rp. " + jumlah + " Saldo sekarang Rp. " + saldo);
+        // Method untuk tarik uang
+        void tarikUang(double jumlah) {
+            if (jumlah > 0 && saldo >= jumlah) {
+                saldo -= jumlah;
+                System.out.println("Penarikan berhasil! Saldo sekarang: Rp" + saldo);
+            } else {
+                System.out.println("Saldo tidak cukup atau jumlah tidak valid.");
+            }
+        }
+
+        // Method untuk transfer uang
+        void transferUang(RekeningBank penerima, double jumlah) {
+            if (jumlah > 0 && saldo >= jumlah) {
+                saldo -= jumlah;
+                penerima.saldo += jumlah;
+                System.out.println("Transfer berhasil!");
+            } else {
+                System.out.println("Transfer gagal! Saldo tidak mencukupi.");
+            }
         }
     }
-
-    void tarikUang(double jumlah) {
-        if (saldo >= jumlah) {
-            saldo -= jumlah;
-            System.out.println(narek + " menarik Rp. " + jumlah + " (Berhasil) Saldo saat ini Rp. " + saldo);
-        } else {
-            System.out.println(narek + " menarik Rp. " + jumlah + " (Gagal) Saldo sekarang Rp. " + saldo);
-        }
-    }
-}

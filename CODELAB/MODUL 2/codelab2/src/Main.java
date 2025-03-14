@@ -1,68 +1,33 @@
-import java.util.Scanner;
 
+// Class Main untuk menjalankan program
 public class Main {
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        RekeningBank rekening1 = new RekeningBank("202410370110502", "Bayhaqy", 100000);
-        RekeningBank rekening2 = new RekeningBank("202410370110508", "Nanda gace", 200000);
 
-        while (true) {
-            System.out.println("============= Menu Transaksi ===========");
-            System.out.println("1. Setor Uang\n2. Tarik Tunai\n3. Transfer Uang\n4. Keluar");
-            System.out.print("Pilihan transaksi: ");
-            int pilihan = input.nextInt();
+        RekeningBank rekening1 = new RekeningBank();
+        rekening1.norek = "202410370110502";
+        rekening1.narek = "Bayhaqy";
+        rekening1.saldo = 100000;
 
-            if (pilihan == 4) break;
+        RekeningBank rekening2 = new RekeningBank();
+        rekening2.norek = "202410370110508";
+        rekening2.narek = "Nanda Gace";
+        rekening2.saldo = 200000;
 
-            if (pilihan == 3) {
-                System.out.print("Pilih Rekening Pengirim (1) " + rekening1.narek + " / (2) " + rekening2.narek + ": ");
-                int pengirimChoice = input.nextInt();
-                if (pengirimChoice != 1 && pengirimChoice != 2) {
-                    System.out.println("Pilihan rekening pengirim tidak valid.");
-                    continue;
-                }
-                RekeningBank pengirim = (pengirimChoice == 1) ? rekening1 : rekening2;
-
-                System.out.print("Pilih Rekening Penerima (1) " + rekening1.narek + " / (2) " + rekening2.narek + ": ");
-                int penerimaChoice = input.nextInt();
-                if (penerimaChoice != 1 && penerimaChoice != 2) {
-                    System.out.println("Pilihan rekening penerima tidak valid.");
-                    continue;
-                }
-                RekeningBank penerima = (penerimaChoice == 1) ? rekening1 : rekening2;
-
-                System.out.print("Masukkan Nominal Transfer: ");
-                double transfer = input.nextDouble();
-                if (pengirim.saldo >= transfer) {
-                    pengirim.tarikUang(transfer);
-                    penerima.setorUang(transfer);
-                    System.out.println("Transfer Berhasil dari " + pengirim.narek + " ke " + penerima.narek + ".");
-                } else {
-                    System.out.println("Saldo tidak mencukupi untuk transfer.");
-                }
-            } else {
-                System.out.print("Pilih Rekening (1) " + rekening1.narek + " / (2) " + rekening2.narek + ": ");
-                int choice = input.nextInt();
-                if (choice != 1 && choice != 2) {
-                    System.out.println("Pilihan rekening tidak valid.");
-                    continue;
-                }
-                RekeningBank rekening = (choice == 1) ? rekening1 : rekening2;
-
-                if (pilihan == 1) {
-                    System.out.print("Masukkan Nominal Setor: ");
-                    rekening.setorUang(input.nextDouble());
-                } else if (pilihan == 2) {
-                    System.out.print("Masukkan Nominal Tarik: ");
-                    rekening.tarikUang(input.nextDouble());
-                } else {
-                    System.out.println("Pilihan Transaksi Tidak Valid");
-                }
-            }
-        }
-
+        System.out.println("\n=== Info Awal Rekening ===");
         rekening1.tampilkanInfo();
         rekening2.tampilkanInfo();
-        input.close();
+
+        System.out.println("\n=== Transaksi Setor Uang ===");
+        rekening1.setorUang(50000);
+
+        System.out.println("\n=== Transaksi Tarik Uang ===");
+        rekening2.tarikUang(100000);
+
+        System.out.println("\n=== Transaksi Transfer Uang ===");
+        rekening1.transferUang(rekening2, 30000);
+
+        System.out.println("\n=== Info Akhir Rekening ===");
+        rekening1.tampilkanInfo();
+        rekening2.tampilkanInfo();
     }
 }
