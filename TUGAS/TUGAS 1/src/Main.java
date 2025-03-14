@@ -1,6 +1,6 @@
-import java.util.Scanner; // Import Scanner buat input user
+import java.util.Scanner; // supaya program bisa menerima input dari user."ibaratnya itu kaya kita mau nulis ga punya pulpen jadi(minjem)
 
-public class Main {
+public class Main {//Deklarasi Kelas
     public static void main(String[] args) {
         // Scanner untuk membaca input dari user
         Scanner scanner = new Scanner(System.in);
